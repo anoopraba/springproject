@@ -1,0 +1,172 @@
+package com.Employee;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class EmployeeService {
+	@Autowired
+	EmployeeDao empDao;
+	
+	public String addEmployee(Employee e) {
+		return empDao.addEmployee(e);
+	}
+	
+	
+	public String addEmployee(List<Employee> e) {
+		return empDao.addEmployee(e);
+	}
+	
+	public Employee getEmployeeById(int id) throws EmployeeNotFoundException {
+		return empDao.getEmployeeById(id);
+	}
+	
+	public List<Employee> getAllEmployeeById(){
+		return empDao.getAllEmployeeById();
+	}
+	
+	public String delEmployee(int id) {
+		return empDao.delEmployee(id);
+	}
+	
+	public String updateEmployee(Employee id) {
+		return empDao.updateEmployee(id);
+	}
+	
+	public List<Employee> getByGender(String gender){
+		List<Employee> allEmployee=empDao.getAllEmployeeById();
+		return allEmployee.stream().filter(x->x.getGender().equals(gender)).collect(Collectors.toList());
+		
+	}
+	
+	public List<Employee> getBySalary(int a,int b){
+		List<Employee> allEmp=empDao.getAllEmployeeById();
+		return allEmp.stream().filter(y->y.getSalary()>a && y.getSalary()<b).collect(Collectors.toList());
+	}
+	
+	public List<Employee> getByAge(int age){
+		List<Employee> allEmp=empDao.getAllEmployeeById();
+		return allEmp.stream().filter(x->x.getAge()==age).collect(Collectors.toList());
+	}
+	
+	public List<Employee> getByName(String name){
+		List<Employee> allEmp=empDao.getAllEmployeeById();
+		return allEmp.stream().filter(x->x.getName().equals(name)).collect(Collectors.toList());
+	}
+//	public List<Employee> getName(String name){
+//		return empDao.getName(name);
+//	}
+	
+//	public List<Employee> getGender(String gender){
+//		return empDao.getGender(gender);
+//	}
+	
+//	public List<Employee> getAge(int age){
+//		return empDao.getAge(age);
+//	}
+	
+//	public List<Employee> getSal(int salary){
+//		return empDao.getSal(salary);
+//	}
+	
+	public List<String> getEmpNameBySalary(int salary){
+		return empDao.getEmpNameBySalary(salary);
+	}
+	
+	public List<Employee> sortAsc(){
+		return empDao.sortAsc();
+	}
+	
+	public List<Employee> sortDesc(){
+		return empDao.sortDesc();
+	}
+	
+	public List<Employee> getMax(){
+		return empDao.getMax();
+	}
+	
+	public List<Employee> getMin(){
+		return empDao.getMin();
+	}
+	
+	public List<Employee> getMaximum(){
+		return empDao.getMaximum();
+	}
+	
+	public List<Employee> getMinimum(){
+		return empDao.getMinimum();
+	}
+	
+	public List<Employee> maxAge(){
+		return empDao.maxAge();
+	}
+	public List<Employee> minAge(){
+		return empDao.minAge();
+	}
+	
+	public List<Employee> salary(int salary1,int salary2){
+		return empDao.salary(salary1,salary2);
+	}
+	
+	public List<Employee> getSalary(int salary1,int salary2){
+		List<Employee> allEmp=empDao.getAllEmployeeById();
+		return allEmp.stream().filter(x->x.getSalary()>=salary1 && x.getSalary()<= salary2).collect(Collectors.toList());
+	}
+	
+//	public Employee getEmployeeById(int id) throws EmployeeNotFoundException {
+//		if(empDao.getEmployeeById(id)==null) {
+//			throw new EmployeeNotFoundException();
+//		}else {
+//			return empDao.getEmployeeById(id);
+//		}
+//	}
+	
+//	public List<Employee> getName(String name) throws EmployeeNameNotFoundException{
+//		return empDao.getName(name);
+//	}
+	
+//
+//	public List<Employee> getAge(int age) throws AgeNotFoundException{
+//		return empDao.getAge(age);
+//	}
+	
+	public List<Employee> getName(String name) throws EmployeeNameNotFoundException{
+		if(empDao.getName(name).isEmpty()==true) {
+			throw new EmployeeNameNotFoundException();
+		}else {
+			return empDao.getName(name);
+		}
+	}
+	
+//	public List<Employee> getAge(int age) throws AgeNotFoundException{
+//		if(empDao.getAge(age).isEmpty()==true){
+//	        throw new AgeNotFoundException();
+//		}else {
+//			return empDao.getAge(age);
+//		}
+//	
+//	}
+	
+	public List<Employee> getSal(int salary) throws SalaryNotFoundException{
+		return empDao.getSal(salary);
+	}
+	
+	public List<Employee> getGender(String gender) throws GenderNotFoundException{
+		return empDao.getGender(gender);
+	}
+	
+//	public List<Employee> getAge(Employee e) throws AgeNotFoundException{
+//		if(e.getAge()<18){
+//	        throw new AgeNotFoundException();
+//		}else {
+//			return empDao.getAge();
+//		}
+//	
+//	}
+	
+
+}
+

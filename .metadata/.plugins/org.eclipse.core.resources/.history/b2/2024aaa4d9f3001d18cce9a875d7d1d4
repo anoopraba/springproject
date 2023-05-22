@@ -1,0 +1,57 @@
+package com.RestTemplate;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+
+@RestController
+public class RestTemplateController {
+	@Autowired
+	RestTemplate rt;
+	@GetMapping(value="/get")
+	public String get() {
+		String url="http://localhost:8080/sam";
+		ResponseEntity<String> response1=rt.exchange(url,HttpMethod.GET,null,new ParameterizedTypeReference <String>(){});
+		String res=response1.getBody();
+		return "The response is "+res;
+	}
+	
+//	@GetMapping(value="/getproduct")
+//	public List<Products> getproduct(){
+//		String url="http://localhost:8080/addproduct";
+//	    ResponseEntity <List<Products>>response2=rt.exchange(url,HttpMethod.GET,null,new ParameterizedTypeReference<List<Products>>(){});
+//	    List<Products> res=response2.getBody();
+//        return res;	    
+//	}	
+	
+	@GetMapping(value="/getproduct")
+	public List<Products> getproduct(){
+		String url1="http://localhost:8080/addproduct";
+	    ResponseEntity <List<Products>>response1=rt.exchange(url1,HttpMethod.GET,null,new ParameterizedTypeReference<List<Products>>(){});
+	    List<Products> res=response1.getBody();
+        return res;	    
+	}	
+	
+	@GetMapping(value="/getnetprice")
+	public List<Integer> getTaxByHsn(){
+		String url1="http://localhost:8080/addproduct";
+		String url2="http://localhost:8082/gettaxbyhsn";
+		ResponseEntity <List<Products>>response1=rt.exchange(url1,HttpMethod.GET,null,new ParameterizedTypeReference<List<Products>>(){});
+		List<Products> products=response1.getBody();
+		List<Integer> netprice=new ArrayList<>();
+		products.forEach(x->{
+			ResponseEntity<Integer> tax=rt.exchange(url2+x.getHsn(),HttpMethod.GET,null,Integer.class);
+			Integer t=tax.getBody();
+			netprice.add(x.getPrice()+(x.getPrice()*t/100));
+		});
+		return netprice;
+	}
+
+}

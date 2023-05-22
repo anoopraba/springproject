@@ -1,0 +1,12 @@
+package com.Gst.Dao;
+@repository
+public class GstDao {
+	@Autowired
+	GstRepository gRepo;
+	
+	public String addGst(Gst g) {
+		gRepo.save(g);
+		return "gst saved";
+	}
+
+}

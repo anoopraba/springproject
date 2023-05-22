@@ -1,0 +1,36 @@
+package com.StudentResults.Services;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.StudentResults.Dao.StudentResultsDao;
+import com.StudentResults.Entity.StudentResults;
+
+@Service
+public class StudentResultsServices {
+	
+	@Autowired
+	StudentResultsDao resDao;
+	public String setResults(StudentResults res) {
+		return resDao.setResults(res);
+	}
+	public List<StudentResults> getFinalMarks() {
+		return resDao.getFinalMarks();
+	}
+	public StudentResults getFinalMarkByRoll(int rollNumber) {
+		return resDao.getFinalMarkByRoll(rollNumber);
+	}
+//	public String updateByRoll(StudentResults a, int roll) {
+//		return resDao.updateByRoll(a,roll);
+//	}
+	public String deleteByid(int id) {
+		return resDao.deleteById(id);
+	}
+	public String findResults(List<StudentResults> resultsDetails) {
+		return resDao.findResults(resultsDetails);
+	}
+
+
+}

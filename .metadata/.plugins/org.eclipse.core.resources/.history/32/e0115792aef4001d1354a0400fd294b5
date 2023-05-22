@@ -1,0 +1,49 @@
+package com.StudentMarkSheet;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+
+
+@RestController
+public class MarkSheetController {
+	@Autowired
+	MarkSheetService markSer;
+	@PostMapping(value="/addmark")
+	public String addMark(@RequestBody MarkSheet m) {
+		return markSer.addMark(m);
+		
+	}
+	@PostMapping(value="/addallmark")
+	public String addAllMark(@RequestBody List<MarkSheet> m) {
+		return markSer.addAllMark(m);
+	}
+	
+	@GetMapping(value="/getmarkbyid/{id}")
+	public MarkSheet getMarkSheetById(@PathVariable int id){
+		return markSer.getMarkSheetById(id);
+	}
+	@GetMapping(value="/getallmarkbyid")
+	public List<MarkSheet> getAllMarkSheetById(){
+		return markSer.getAllMarkSheetById();
+	}
+	
+	@DeleteMapping(value="/del/{id}")
+	public String delMarkSheet(@PathVariable int id) {
+		return markSer.delMarkSheet(id);
+	}
+	
+	@PutMapping(value="/update/{id}")
+	public String updateMarksheet(@RequestBody MarkSheet id) {
+		return markSer.updateMarkSheet(id);
+	}
+
+}

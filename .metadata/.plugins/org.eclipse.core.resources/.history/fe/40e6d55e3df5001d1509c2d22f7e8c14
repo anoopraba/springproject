@@ -1,0 +1,24 @@
+package com.StudentResults.Services;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.StudentResults.Dao.StudentResultsDao;
+import com.StudentResults.Entity.StudentResults;
+
+@Service
+public class StudentResultsServices {
+	
+	@Autowired
+	StudentResultsDao resDao;
+	public String setResults(StudentResults res) {
+		return resDao.setResults(res);
+	}
+	public List<StudentResults> getFinalMarks() {
+		return resDao.getFinalMarks();
+	}
+
+
+}

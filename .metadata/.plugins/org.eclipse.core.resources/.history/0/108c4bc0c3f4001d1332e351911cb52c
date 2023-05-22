@@ -1,0 +1,7 @@
+package com.StudentDetails;
+
+public class StudentAgeNotFoundException extends Exception {
+	public StudentAgeNotFoundException() {
+		super();
+	}
+}

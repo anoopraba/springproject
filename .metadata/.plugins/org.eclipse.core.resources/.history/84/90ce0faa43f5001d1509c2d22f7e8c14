@@ -1,0 +1,94 @@
+package com.StudentResults.Controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+
+import com.StudentDetails.Entity.StudentDetails;
+import com.StudentResults.Entity.StudentResults;
+import com.StudentResults.Services.StudentResultsServices;
+
+
+
+@RestController
+public class StudentResultsController {
+	@Autowired
+	RestTemplate rt;
+	@Autowired
+	StudentResultsServices resSer;
+
+	@PostMapping("/setResults")
+	public String setResults(@RequestBody StudentResults res) {
+		return resSer.setResults(res);
+	}
+	
+	@GetMapping("/getFinalMarks")
+	public List<StudentResults> getFinalMarks() {
+		return resSer.getFinalMarks();
+	}
+	
+	@GetMapping("/getFinalMarkByRoll/{roll}")
+	public StudentResults getFinalMarkByRoll(@PathVariable int roll) {
+		return resSer.getFinalMarkByRoll(roll);
+	}
+	
+//	@PutMapping("/updateByRoll/{roll}")
+//	public String updateByRoll(@RequestBody StudentResults a, @PathVariable int roll) {
+//		return resSer.updateByRoll(a, roll);
+//	}
+	
+	@DeleteMapping("/deleteByid/{id}")
+	public String deleteByid(@PathVariable int id) {
+		return resSer.deleteByid(id);
+	}
+	
+	@PostMapping("/findResults")
+	public String findResults() {
+		String url1 = "http://localhost:8080/setStudentDetails";
+		ResponseEntity<List<StudentDetails>> studentResponse = rt.exchange(url1, HttpMethod.GET, null,
+				new ParameterizedTypeReference<List<StudentDetails>>() {
+				});
+		List<StudentDetails> stDet = studentResponse.getBody();
+		List<StudentResults> resultsDetails = new ArrayList<>();
+		
+		for (StudentDetails x : stDet) {
+			String url2 = "http://localhost:8081/getMarkSheetDetailByRoll/";
+			ResponseEntity<StudentMarkSheet> markResponse = rt.exchange(url2 + x.getRollNumber(), HttpMethod.GET, null,
+					new ParameterizedTypeReference<StudentMarkSheet>() {});
+			StudentMarkSheet marksheet = markResponse.getBody();
+			int id=x.getId();
+			int rollNumber = x.getRollNumber();
+			String name = x.getName();
+			int overAll = marksheet.getSem1Total() + marksheet.getSem2Total();
+			int total = overAll / 2;
+			int percentage = total;
+			if (x.getAttendance() > 90) {
+				total += 5;
+				percentage = total;
+				if (total > 100) {
+					total = 100;
+				}
+			}
+			ResultsEntity resu = new ResultsEntity();
+			resu.setRollNumber(rollNumber);
+			resu.setName(name);
+			resu.setTotalMarks(total);
+			resu.setPercentage(percentage);
+			resultsDetails.add(resu);
+			resultsDetails.add(resu);
+		}
+		return rs.findResults(resultsDetails); 
+	}
+
+
+}

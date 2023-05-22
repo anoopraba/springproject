@@ -1,0 +1,24 @@
+package com.StudentDetails;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class StudentController {
+	@Autowired
+	StudentService studSer;
+	@PostMapping(value="/addstud")
+	public String addStud(@RequestBody Student s) {
+		return studSer.addStud(s);
+	}
+	
+	@PostMapping(value="/addallstud")
+	public String addAllStud(@RequestBody List<Student> s) {
+		return studSer.addAllStud(s);
+	}
+
+}

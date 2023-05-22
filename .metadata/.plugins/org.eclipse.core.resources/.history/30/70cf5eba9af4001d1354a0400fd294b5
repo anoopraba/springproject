@@ -1,0 +1,20 @@
+package com.StudentDetails;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class StudentService {
+	@Autowired
+	StudentDao studDao;
+	public String addStud(Student s) {
+		return studDao.addStud(s);
+	}
+	
+	public String addAllStud(List<Student> s) {
+		return studDao.addAllStud(s);
+	}
+
+}

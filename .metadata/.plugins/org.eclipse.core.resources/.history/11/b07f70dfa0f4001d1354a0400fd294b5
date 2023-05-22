@@ -1,0 +1,55 @@
+package com.StudentDetails;
+
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+
+
+@Repository
+public class StudentDao {
+	@Autowired
+	StudentRepository studRepo;
+	public String addStud(Student s) {
+		studRepo.save(s);
+		return "successfully saved";
+	}
+	
+	public String addAllStud(List<Student> s) {
+		studRepo.saveAll(s);
+		return "successfully saved";
+	}
+	
+	public Student getStudentById(int id) {
+		return studRepo.findById(id).get();
+	}
+	
+	public List<Student>  getAllStudentById(){
+		return studRepo.findAll();
+	}
+	
+	public String delStudent(int id) {
+		studRepo.deleteById(id);
+		return "Deleted successfully";
+	}
+	
+	public String updateStudent(Student id) {
+		studRepo.save(id);
+		return "updated Successfully";
+	}
+	
+
+     public List<Student> getAge(List<Student> s) throws StudentAgeNotFoundException{
+    	 for(Student x:s) {
+		if(x.getAge()<18){
+	        throw new StudentAgeNotFoundException();
+		}else {
+			return studRepo.getAge();
+		}
+	
+	     }
+    	 return s;
+     }
+}

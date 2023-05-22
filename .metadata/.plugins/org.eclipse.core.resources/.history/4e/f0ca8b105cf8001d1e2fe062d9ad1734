@@ -1,0 +1,20 @@
+package com.StudentResults.Repository;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import com.StudentResults.Entity.StudentResults;
+
+public interface StudentResultsRepository extends JpaRepository<StudentResults,Integer> {
+    @Query(value="select total_marks from students.results",nativeQuery=true) 
+	List<StudentResults> getFinalMarks();
+    @Query(value="select total_marks from students.results where roll_number= ?",nativeQuery=true)
+	StudentResults getFinalMarkByRoll(int rollNumber);
+//    @Query(value="select * from students.results where total_marks>= ? and total_marks <=?",nativeQuery=true)
+//	List<StudentResults> getStudentsByRange(int a, int b);
+//	
+
+
+}

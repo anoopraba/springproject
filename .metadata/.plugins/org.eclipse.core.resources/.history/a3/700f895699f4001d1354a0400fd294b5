@@ -1,0 +1,17 @@
+package com.StudentDetails;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+
+
+@RestControllerAdvice
+public class StudentException {
+	@ExceptionHandler(StudentNotFoundException.class)
+	public ResponseEntity<Object> idNotHere(){
+		return new ResponseEntity<>("No employee is present",HttpStatus.NOT_FOUND);
+	}
+
+}

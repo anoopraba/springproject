@@ -1,0 +1,20 @@
+package com.StudentDetails;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+
+
+
+
+@RestControllerAdvice
+public class StudentException {
+
+	@ExceptionHandler(StudentAgeNotFoundException.class)
+	public ResponseEntity<Object> ageNotHere(){
+		return new ResponseEntity<>("no such age",HttpStatus.NOT_FOUND);
+	}
+
+}

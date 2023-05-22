@@ -1,0 +1,42 @@
+package com.StudentMarkSheet;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.StudentDetails.Student;
+
+@Repository
+public class MarkSheetDao {
+	@Autowired
+	MarkSheetRepository markRepo;
+	public String addMark(MarkSheet m) {
+		markRepo.save(m);
+		return "saved successfully";
+	}
+	
+	public String addAllMark(List<MarkSheet> m) {
+		markRepo.saveAll(m);
+		return "all marks saved";
+	}
+	
+	public MarkSheet getMarkSheetById(int id) {
+		return markRepo.findById(id).get();
+	}
+	
+	public List<MarkSheet>  getAllMarkSheetById(){
+		return markRepo.findAll();
+	}
+	
+	public String delMarkSheet(int id) {
+		markRepo.deleteById(id);
+		return "Deleted successfully";
+	}
+	
+	public String updateMarkSheet(MarkSheet id) {
+		markRepo.save(id);
+		return "updated Successfully";
+	}
+
+}

@@ -1,0 +1,46 @@
+package com.StudentMarkSheet.Controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+
+import com.StudentMarkSheet.Entity.StudentMarkSheet;
+import com.StudentMarkSheet.Service.StudentMarkSheetService;
+
+@RestController
+public class StudentMarkSheetController {
+
+	@Autowired 
+	StudentMarkSheetService stdSer;
+	
+	@PostMapping(value="/addmark")
+	public String addMark(StudentMarkSheet mark) {
+		return stdSer.addMark(mark);
+	}
+	
+	@PostMapping(value = "/addMarkListDetails")
+	public String addMarkSheetListDetails(@RequestBody List<StudentMarkSheet> sd) {
+		return stdSer.addMarkSheetListDetails(sd);
+	}
+
+	@PutMapping(value = "/updateStudentDetails/{id}")
+	public String updateMarkSheetDetails(@RequestBody StudentMarkSheet id) {
+		return stdSer.updateMarkSheetDetails(id);
+	}
+	
+	@PostMapping(value ="/setMark")
+	public String setMark(@RequestBody List<StudentMarkSheet> mark) {
+		return stdSer.setMark(mark);
+	}
+	
+	@GetMapping(value="/getMarkSheetDetailByRoll/{rollNumber}")
+	public List<StudentMarkSheet> getMarkSheetDetailByRoll(List<StudentMarkSheet> rollNumber){
+		return stdSer.getMarkSheetDetailByRoll(rollNumber);
+	}
+}

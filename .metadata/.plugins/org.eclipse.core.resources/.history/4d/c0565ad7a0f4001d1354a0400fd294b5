@@ -1,0 +1,55 @@
+package com.StudentDetails;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+
+
+@RestController
+public class StudentController {
+	@Autowired
+	StudentService studSer;
+	@PostMapping(value="/addstud")
+	public String addStud(@RequestBody Student s) {
+		return studSer.addStud(s);
+	}
+	
+	@PostMapping(value="/addallstud")
+	public String addAllStud(@RequestBody List<Student> s) {
+		return studSer.addAllStud(s);
+	}
+	
+	@GetMapping(value="/getById/{id}")
+	public Student getStudentById(@PathVariable int id){
+		return studSer.getStudentById(id);
+	}
+	@GetMapping(value="/getAllById")
+	public List<Student> getAllEmployeeById(){
+		return studSer.getAllStudentById();
+	}
+	
+	@DeleteMapping(value="/del/{id}")
+	public String delStudent(@PathVariable int id) {
+		return studSer.delStudent(id);
+	}
+	
+	@PutMapping(value="/update/{id}")
+	public String updateStudent(@RequestBody Student id) {
+		return studSer.updateStudent(id);
+	}
+	
+	@GetMapping(path="/getstudbyage/{age}")
+	public List<Student> getAge(@PathVariable int age) throws StudentAgeNotFoundException{
+		return studSer.getAge(age);
+	}
+	
+	
+}

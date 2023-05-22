@@ -1,0 +1,13 @@
+package com.StudentResults.Repository;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.StudentResults.Entity.StudentResults;
+
+public interface StudentResultsRepository extends JpaRepository<StudentResults,Integer> {
+     
+	List<StudentResults> getFinalMarks();
+
+}

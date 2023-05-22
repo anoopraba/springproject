@@ -1,0 +1,91 @@
+package com.onesoft.Car.Controller;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+
+//import com.RestTemplate.Products;
+//import com.Employee.Employee;
+import com.onesoft.Car.Entity.Car;
+import com.onesoft.Car.Service.CarService;
+
+@RestController
+@RequestMapping(value="/car")
+
+
+public class CarController {
+	
+	@Autowired
+	CarService carSer;
+	
+	@RequestMapping(value = "/addCar")
+	public String addCar(@RequestBody Car c) {
+		return carSer.addCar(c);
+	}
+	
+	@PostMapping(value = "/addAllCar")
+	public String addCar(@RequestBody List<Car> c) {
+		return carSer.addCar(c);
+	}
+	
+	@RequestMapping(value="/getById/{id}")
+	public Car getCarById(@PathVariable int id) {
+		return carSer.getCarById(id);
+	}
+	@GetMapping(value="/getAllById")
+	public List<Car> getAllCarById(){
+		return carSer.getAllCarById();
+	}
+	@DeleteMapping(value="/del/{id}")
+	public String delcar(@PathVariable int id) {
+		return carSer.delcar(id);
+	}
+	
+	@PutMapping(value="/updatecar/{id}")
+	public String updatecar(@RequestBody Car id) {
+		return carSer.updatecar(id);
+	}
+	
+	@GetMapping(path="/getbrand/{brand}")
+	public List<Car> getByBrand(@PathVariable String brand){
+		return carSer.getByBrand(brand);
+	}
+
+	@GetMapping(path="/getcolor/{color}")
+	public List<Car> getByColor(@PathVariable String color){
+		return carSer.getByColor(color);
+	}
+	
+	@GetMapping(path="/getcc")
+	public List<Car> getByCc(){
+		return carSer.getByCc();
+	}
+	//getting the details from the employee to car
+//	@Autowired
+//	RestTemplate rt;
+//	@GetMapping(value="getallemp")
+//	public Employee[] getAllEmployeeById(){
+//		String url1="http://localhost:8081/getCarById";
+//		String url2="http://localhost:8080/getAllEmployeeById/ ";
+//		Car[] cars=rt.getForObject(url1,Car[].class);
+//		cars
+//		
+//		return emps;
+//	}
+//	
+		
+	
+}

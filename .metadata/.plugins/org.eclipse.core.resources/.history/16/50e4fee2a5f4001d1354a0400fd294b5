@@ -1,0 +1,14 @@
+package com.StudentMarkSheet;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class MarkSheetService {
+	@Autowired
+	MarkSheetDao markDao;
+	public String addMark(MarkSheet m) {
+		return markDao.addMark(m);
+	}
+
+}

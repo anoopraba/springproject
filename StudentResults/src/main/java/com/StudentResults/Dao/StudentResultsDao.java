@@ -1,0 +1,42 @@
+package com.StudentResults.Dao;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.StudentResults.Entity.StudentResults;
+import com.StudentResults.Repository.StudentResultsRepository;
+
+@Repository
+public class StudentResultsDao {
+	@Autowired
+	StudentResultsRepository resRepo;
+	public String setResults(StudentResults res) {
+		resRepo.save(res);
+		return "it has been saved ";
+	}
+	public List<StudentResults> getFinalMarks() {
+		return resRepo.findAll();
+	}
+	public StudentResults getFinalMarkByRoll(int rollNumber) {
+		return resRepo.getFinalMarkByRoll(rollNumber);
+	}
+	public String updateByRoll(StudentResults rollNumber) {
+		 resRepo.save(rollNumber);
+		return "it has been updated ";
+	}
+	public String deleteById(int id) {
+		resRepo.deleteById(id);
+		return "it has been deleted";
+	}
+	public String setAllResult(List<StudentResults> res) {
+		resRepo.saveAll(res);
+		return "list is saved successfully";
+	}
+
+	
+	
+	
+
+}

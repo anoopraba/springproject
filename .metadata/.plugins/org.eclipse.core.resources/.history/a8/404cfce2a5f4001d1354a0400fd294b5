@@ -1,0 +1,15 @@
+package com.StudentMarkSheet;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public class MarkSheetDao {
+	@Autowired
+	MarkSheetRepository markRepo;
+	public String addMark(MarkSheet m) {
+		markRepo.save(m);
+		return "saved successfully";
+	}
+
+}

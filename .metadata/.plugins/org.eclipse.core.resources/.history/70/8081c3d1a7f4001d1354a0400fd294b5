@@ -1,0 +1,24 @@
+package com.StudentMarkSheet;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class MarkSheetController {
+	@Autowired
+	MarkSheetService markSer;
+	@PostMapping(value="/addmark")
+	public String addMark(@RequestBody MarkSheet m) {
+		return markSer.addMark(m);
+		
+	}
+	@PostMapping(value="/addallmark")
+	public String addAllMark(@RequestBody List<MarkSheet> m) {
+		return markSer.addAllMark(m);
+	}
+
+}

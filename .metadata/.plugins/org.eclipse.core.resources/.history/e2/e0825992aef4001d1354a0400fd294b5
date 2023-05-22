@@ -1,0 +1,38 @@
+package com.StudentMarkSheet;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+
+
+@Service
+public class MarkSheetService {
+	@Autowired
+	MarkSheetDao markDao;
+	public String addMark(MarkSheet m) {
+		return markDao.addMark(m);
+	}
+	
+	public String addAllMark(List<MarkSheet> m) {
+		return markDao.addAllMark(m);
+	}
+	
+	public MarkSheet getMarkSheetById(int id) {
+		return markDao.getMarkSheetById(id);
+	}
+	
+	public List<MarkSheet> getAllMarkSheetById(){
+		return markDao.getAllMarkSheetById();
+	}
+	
+	public String delMarkSheet(int id) {
+		return markDao.delMarkSheet(id);
+	}
+	
+	public String updateMarkSheet(MarkSheet id) {
+		return markDao.updateMarkSheet(id);
+	}
+
+}

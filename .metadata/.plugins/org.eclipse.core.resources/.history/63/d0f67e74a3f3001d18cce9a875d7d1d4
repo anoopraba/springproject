@@ -1,0 +1,18 @@
+package com.Product.Dao;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.Product.Entity.Products;
+import com.Product.Repository.ProductsRepository;
+
+@Repository
+public class ProductsDao {
+	@Autowired
+	ProductsRepository prodRepo;
+	public String addProd(Products p) {
+	 prodRepo.save(p);
+	 return "successfully saved";
+	}
+
+}
